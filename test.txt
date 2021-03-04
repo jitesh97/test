@@ -26,3 +26,6 @@ curl -H "Content-Type: text/plain" -H "token: ${CIRCLE_WORKFLOW_ID}" --request P
 
 Item has been created.
 CircleCI received exit code 0
+
+/bin/bash: line 2: [[09e66e0!=09e66e07-f60e-421f-a889-961057f448b7]]: command not found
+09e66e07-f60e-421f-a889-961057f448b7==09e66e0
