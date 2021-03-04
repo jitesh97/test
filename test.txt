@@ -29,3 +29,21 @@ CircleCI received exit code 0
 
 /bin/bash: line 2: [[09e66e0!=09e66e07-f60e-421f-a889-961057f448b7]]: command not found
 09e66e07-f60e-421f-a889-961057f448b7==09e66e0
+
+#!/bin/bash -eo pipefail
+OLD_WORKFLOW=$(curl -H "token: ${CIRCLE_WORKFLOW_ID}" --request GET https://api.memstash.io/values/OLD_WORKFLOW)
+CURRENT_ID=${CIRCLE_WORKFLOW_ID:0:7}
+if [["$CURRENT_ID"!="$OLD_WORKFLOW"]]
+then
+  echo "$OLD_WORKFLOW!=$CURRENT_ID"
+  aws s3 rm "s3://jg-${OLD_WORKFLOW}" --recursive
+  aws cloudformation delete-stack --stack-name "jg-${OLD_WORKFLOW}"
+else
+  echo "$OLD_WORKFLOW==$CURRENT_ID"
+fi
+  % Total    % Received % Xferd  Average Speed   Time    Time     Time  Current
+                                 Dload  Upload   Total   Spent    Left  Speed
+100    36  100    36    0     0    590      0 --:--:-- --:--:-- --:--:--   590
+/bin/bash: line 2: [[09e66e0!=09e66e07-f60e-421f-a889-961057f448b7]]: command not found
+09e66e07-f60e-421f-a889-961057f448b7==09e66e0
+CircleCI received exit code 0
